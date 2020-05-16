@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">New Carbon Truth 2</string>
+    <string name="app_name">Carbon Truth</string>
     <string name="foodQuestionString">How many kilos of said food have you eaten?</string>
     <string name="vehicleQuestionString">How many miles did you travel in said vehicle?</string>
 
