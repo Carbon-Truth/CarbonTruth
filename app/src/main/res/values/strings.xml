@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">New Carbon Truth 2</string>
+    <string name="foodQuestionString">How many kilos of said food have you eaten?</string>
+    <string name="vehicleQuestionString">How many miles did you travel in said vehicle?</string>
+
+    <string name="food_quantity_hint">Kilos of food you\'ve eaten</string>
+    <string name="vehicle_quantity_hint">Miles you\'ve traveled</string>
+
+    <string name="food_image_text">Click to input food data</string>
+    <string name="vehicle_image_text">Click to input vehicle data</string>
+
+
+    <string name="food_item_1">Dairy</string>
+    <string name="food_item_2">Fat</string>
+    <string name="food_item_3">Grain</string>
+    <string name="food_item_4">Meat</string>
+    <string name="food_item_5">Vegetables</string>
+
+    <string name="vehicle_item_1">Bicycle</string>
+    <string name="vehicle_item_2">Car</string>
+    <string name="vehicle_item_3">Motorcycle</string>
+    <string name="vehicle_item_4">Transit bus</string>
+    <string name="vehicle_item_5">Van/Light Truck</string>
+
+    <string name="submit_button_text">Submit</string>
+
+</resources>
