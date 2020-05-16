@@ -10,7 +10,7 @@
         android:id="@+id/footprintLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="100dp"
         android:text="Your current footprint:"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,9 +78,12 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="266dp" />
+        android:text="The average American carbon footprint is 27 tons per year"
+        app:layout_constraintBottom_toTopOf="@+id/footprintLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
