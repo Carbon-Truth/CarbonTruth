@@ -25,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
         TextView answerText=findViewById(R.id.footprintValue);
-        answerText.setText(getFootprintValue());
+        answerText.setText(fileManager.getFootprintValue());
 
         Toast toast=Toast.makeText(getApplicationContext(), "grep: you toast", Toast.LENGTH_LONG);
         toast.show();
@@ -46,61 +47,71 @@ public class MainActivity extends AppCompatActivity {
 
     public void onFoodItem1Click(View v)
     {
-        saveNewType("f", "dairy");
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        fileManager.saveNewType("f", "dairy");
         setContentView(R.layout.food_quantity_popup);
     }
 
     public void onFoodItem2Click(View v)
     {
-        saveNewType("f","fat");
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        fileManager.saveNewType("f","fat");
         setContentView(R.layout.food_quantity_popup);
     }
 
     public void onFoodItem3Click(View v)
     {
-        saveNewType("f","grain");
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        fileManager.saveNewType("f","grain");
         setContentView(R.layout.food_quantity_popup);
     }
 
     public void onFoodItem4Click(View v)
     {
-        saveNewType("f","meat");
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        fileManager.saveNewType("f","meat");
         setContentView(R.layout.food_quantity_popup);
     }
 
     public void onFoodItem5Click(View v)
     {
-        saveNewType("f","vegetables");
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        fileManager.saveNewType("f","vegetables");
         setContentView(R.layout.food_quantity_popup);
     }
 
     public void onVehicleItem1Click(View v)
     {
-        saveNewType("v","Bicycle");
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        fileManager.saveNewType("v","Bicycle");
         setContentView(R.layout.vehicle_quantity_popup);
     }
 
     public void onVehicleItem2Click(View v)
     {
-        saveNewType("v","Car");
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        fileManager.saveNewType("v","Car");
         setContentView(R.layout.vehicle_quantity_popup);
     }
 
     public void onVehicleItem3Click(View v)
     {
-        saveNewType("v","Motorcycle");
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        fileManager.saveNewType("v","Motorcycle");
         setContentView(R.layout.vehicle_quantity_popup);
     }
 
     public void onVehicleItem4Click(View v)
     {
-        saveNewType("v","Transit bus");
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        fileManager.saveNewType("v","Transit bus");
         setContentView(R.layout.vehicle_quantity_popup);
     }
 
     public void onVehicleItem5Click(View v)
     {
-        saveNewType("v","Van/Light Truck");
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        fileManager.saveNewType("v","Van/Light Truck");
         setContentView(R.layout.vehicle_quantity_popup);
     }
 
@@ -114,12 +125,13 @@ public class MainActivity extends AppCompatActivity {
             quantity="0";
         }
 
-        saveQuantity(quantity);
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        fileManager.saveQuantity(quantity);
 
         setContentView(R.layout.activity_main);
 
         TextView answerText=findViewById(R.id.mostRecentInputStr);
-        answerText.setText(formatTemp(readTempFile()));
+        answerText.setText(formatTemp(fileManager.readTempFile()));
     }
 
     public String formatTemp(String temp)
@@ -147,134 +159,13 @@ public class MainActivity extends AppCompatActivity {
 
     //the final block that closes readers from https://stackoverflow.com/questions/37037718/is-it-necessary-to-call-close-in-a-finally-when-writing-files-in-java
 
-
-
-    public String readTempFile()
-    {
-        File file = new File(getFilesDir(), "theTempFiles");
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-
-        try {
-            File newFile = new File(file, "temp.txt");
-            BufferedReader br = new BufferedReader(new FileReader(newFile));
-
-            String total="";
-            String st;
-            while ((st = br.readLine()) != null)
-            {
-                total=total+st+" ";
-            }
-
-            Toast toast=Toast.makeText(getApplicationContext(), "grep: Found "+total, Toast.LENGTH_LONG);
-            toast.show();
-
-            return total;
-        }
-        catch (Exception e) {
-            Toast toast=Toast.makeText(getApplicationContext(), "grep: "+e+" was thrown", Toast.LENGTH_LONG);
-            toast.show();
-            return "Nothing Found";
-        }
-    }
-
-    //saves new type of source of carbon in the file temp, to be read at the end of the day.
-    private void saveNewType(String carOrFood, String sourceType)
-    {
-//        File directory;
-//        if (filename.isEmpty()) {
-//        directory = getFilesDir();
-//    }
-//        else {
-//            directory = getDir(filename, MODE_PRIVATE);
-//        }
-//        File[] files = directory.listFiles();
-        File file = new File(getFilesDir(), "theTempFiles");
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-
-        try {
-            File newFile = new File(file, "temp.txt");
-            FileWriter writer = new FileWriter(newFile, true);
-            writer.append(carOrFood+" "+sourceType+" ");
-            writer.flush();
-            writer.close();
-            Toast toast=Toast.makeText(getApplicationContext(), "grep: wrote "+carOrFood+" "+sourceType+" in temp", Toast.LENGTH_LONG);
-            toast.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast toast=Toast.makeText(getApplicationContext(), "grep:"+e+"was thrown when trying to write into the file", Toast.LENGTH_LONG);
-            toast.show();
-        }
-    }
-
-    private void saveQuantity(String quantity)
-    {
-        File file = new File(getFilesDir(), "theTempFiles");
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-
-        try {
-            File newFile = new File(file, "temp.txt");
-            FileWriter writer = new FileWriter(newFile, true);
-            writer.append(quantity+"|");
-            writer.flush();
-            writer.close();
-            Toast toast=Toast.makeText(getApplicationContext(), "grep: wrote "+quantity+" in temp", Toast.LENGTH_LONG);
-            toast.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast toast=Toast.makeText(getApplicationContext(), "grep:"+e+"was thrown when trying to write into the file", Toast.LENGTH_LONG);
-            toast.show();
-        }
-    }
-
-    private String getFootprintValue() {
-        File file = new File(getFilesDir(), "theTempFiles");
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-
-        try {
-            File newFile = new File(file, "tempFootprint.txt");
-
-            FileWriter writer = new FileWriter(newFile, true);
-            writer.append("");
-            writer.flush();
-            writer.close();
-
-            BufferedReader br = new BufferedReader(new FileReader(newFile));
-
-            String total="";
-            String st;
-            while ((st = br.readLine()) != null)
-            {
-                total=total+st+" ";
-            }
-
-            if (total.equals(""))
-            {
-                total="Not Yet";
-            }
-
-            return total;
-        }
-        catch (Exception e) {
-            Toast toast=Toast.makeText(getApplicationContext(), "grep: "+e+" was thrown when trying to make toast", Toast.LENGTH_LONG);
-            toast.show();
-            return "footprint not found";
-        }
-    }
-
     public void calculateCurrentFootprint(View v)
     {
         ArrayList<String> foodList = new ArrayList<String>();
         ArrayList<String> vehicleList = new ArrayList<String>();
 
-        String temp = readTempFile();
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        String temp = fileManager.readTempFile();
 
         while (!temp.equals("")&&!temp.equals(" "))
         {

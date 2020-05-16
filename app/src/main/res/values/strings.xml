@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Carbon Truth</string>
-    <string name="foodQuestionString">How many kilos of said food have you eaten?</string>
+    <string name="foodQuestionString">How many grams of said food have you eaten?</string>
     <string name="vehicleQuestionString">How many miles did you travel in said vehicle?</string>
 
-    <string name="food_quantity_hint">Kilos of food you\'ve eaten</string>
+    <string name="food_quantity_hint">Grams of food you\'ve eaten</string>
     <string name="vehicle_quantity_hint">Miles you\'ve traveled</string>
 
     <string name="food_image_text">Click to input food data</string>
