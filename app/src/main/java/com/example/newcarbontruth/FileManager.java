@@ -38,14 +38,9 @@ public class FileManager {
                 total=total+st+" ";
             }
 
-            Toast toast=Toast.makeText(applicationContext, "grep: Found "+total, Toast.LENGTH_LONG);
-            toast.show();
-
             return total;
         }
         catch (Exception e) {
-            Toast toast=Toast.makeText(applicationContext, "grep: "+e+" was thrown", Toast.LENGTH_LONG);
-            toast.show();
             return "Nothing Found";
         }
     }
@@ -81,14 +76,11 @@ public class FileManager {
             return total;
         }
         catch (Exception e) {
-            Toast toast=Toast.makeText(applicationContext, "grep: "+e+" was thrown when trying to make toast", Toast.LENGTH_LONG);
-            toast.show();
             return "footprint not found";
         }
     }
 
-    //saves new type of source of carbon in the file temp, to be read at the end of the day.
-    public void saveNewType(String carOrFood, String sourceType)
+    public void writeToFile(String text, String fileName)
     {
         File file = new File(fileDirectory, "theTempFiles");
         if (!file.exists()) {
@@ -96,21 +88,18 @@ public class FileManager {
         }
 
         try {
-            File newFile = new File(file, "temp.txt");
+            File newFile = new File(file, fileName);
             FileWriter writer = new FileWriter(newFile, true);
-            writer.append(carOrFood+" "+sourceType+" ");
+            writer.append(text);
             writer.flush();
             writer.close();
-            Toast toast=Toast.makeText(applicationContext, "grep: wrote "+carOrFood+" "+sourceType+" in temp", Toast.LENGTH_LONG);
-            toast.show();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast toast=Toast.makeText(applicationContext, "grep:"+e+"was thrown when trying to write into the file", Toast.LENGTH_LONG);
-            toast.show();
         }
     }
 
-    public void saveQuantity(String quantity)
+
+    public String getLastTime()
     {
         File file = new File(fileDirectory, "theTempFiles");
         if (!file.exists()) {
@@ -118,16 +107,54 @@ public class FileManager {
         }
 
         try {
-            File newFile = new File(file, "temp.txt");
+            File newFile = new File(file, "tempLastTime.txt");
+
             FileWriter writer = new FileWriter(newFile, true);
-            writer.append(quantity+"|");
+            writer.append("");
             writer.flush();
             writer.close();
-            Toast toast=Toast.makeText(applicationContext, "grep: wrote "+quantity+" in temp", Toast.LENGTH_LONG);
+
+            BufferedReader br = new BufferedReader(new FileReader(newFile));
+
+            String total="";
+            String st;
+            while ((st = br.readLine()) != null)
+            {
+                total+=st;
+            }
+
+            if (total.equals(""))
+            {
+                total="0";
+            }
+
+            return total;
+        }
+        catch (Exception e) {
+            Toast toast=Toast.makeText(applicationContext, "grep: "+e+" was thrown when trying to make toast", Toast.LENGTH_LONG);
+            toast.show();
+            return "0";
+        }
+    }
+
+    public void clearFile(String fileName)
+    {
+        File file = new File(fileDirectory, "theTempFiles");
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+
+        try {
+            File newFile = new File(file, fileName);
+            FileWriter writer = new FileWriter(newFile, false);
+            writer.append("");
+            writer.flush();
+            writer.close();
+            Toast toast=Toast.makeText(applicationContext, "grep: cleared file", Toast.LENGTH_LONG);
             toast.show();
         } catch (IOException e) {
             e.printStackTrace();
-            Toast toast=Toast.makeText(applicationContext, "grep:"+e+"was thrown when trying to write into the file", Toast.LENGTH_LONG);
+            Toast toast=Toast.makeText(applicationContext, "grep:"+e+"was thrown when trying to clear the file", Toast.LENGTH_LONG);
             toast.show();
         }
     }

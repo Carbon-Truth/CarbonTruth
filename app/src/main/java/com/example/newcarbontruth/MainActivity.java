@@ -26,10 +26,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        TimeManager timeManager = new TimeManager(fileManager);
+        //check if a day has passed since the last time the footprint was recorded.
+
+        String toPassIsTheQuestion = "";
+
+        if (timeManager.dayHasPassed())
+        {
+            String footprintForYesterday = calculateCurrentFootprint();
+            fileManager.writeToFile(footprintForYesterday, "tempFootprint.txt");
+            toPassIsTheQuestion=" you passed";
+        }
+
         TextView answerText=findViewById(R.id.footprintValue);
         answerText.setText(fileManager.getFootprintValue());
 
-        Toast toast=Toast.makeText(getApplicationContext(), "grep: you toast", Toast.LENGTH_LONG);
+        Toast toast=Toast.makeText(getApplicationContext(), "grep: you toast"+toPassIsTheQuestion, Toast.LENGTH_LONG);
         toast.show();
     }
 
@@ -48,70 +60,70 @@ public class MainActivity extends AppCompatActivity {
     public void onFoodItem1Click(View v)
     {
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        fileManager.saveNewType("f", "dairy");
+        fileManager.writeToFile("f"+" "+"dairy"+" ", "temp.txt");
         setContentView(R.layout.food_quantity_popup);
     }
 
     public void onFoodItem2Click(View v)
     {
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        fileManager.saveNewType("f","fat");
+        fileManager.writeToFile("f"+" "+"fat"+" ","temp.txt");
         setContentView(R.layout.food_quantity_popup);
     }
 
     public void onFoodItem3Click(View v)
     {
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        fileManager.saveNewType("f","grain");
+        fileManager.writeToFile("f"+" "+"grain"+" ","temp.txt");
         setContentView(R.layout.food_quantity_popup);
     }
 
     public void onFoodItem4Click(View v)
     {
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        fileManager.saveNewType("f","meat");
+        fileManager.writeToFile("f"+" "+"meat"+" ","temp.txt");
         setContentView(R.layout.food_quantity_popup);
     }
 
     public void onFoodItem5Click(View v)
     {
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        fileManager.saveNewType("f","vegetables");
+        fileManager.writeToFile("f"+" "+"vegetables"+" ","temp.txt");
         setContentView(R.layout.food_quantity_popup);
     }
 
     public void onVehicleItem1Click(View v)
     {
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        fileManager.saveNewType("v","Bicycle");
+        fileManager.writeToFile("v"+" "+"Bicycle"+" ","temp.txt");
         setContentView(R.layout.vehicle_quantity_popup);
     }
 
     public void onVehicleItem2Click(View v)
     {
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        fileManager.saveNewType("v","Car");
+        fileManager.writeToFile("v"+" "+"Car"+" ","temp.txt");
         setContentView(R.layout.vehicle_quantity_popup);
     }
 
     public void onVehicleItem3Click(View v)
     {
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        fileManager.saveNewType("v","Motorcycle");
+        fileManager.writeToFile("v"+" "+"Motorcycle"+" ","temp.txt");
         setContentView(R.layout.vehicle_quantity_popup);
     }
 
     public void onVehicleItem4Click(View v)
     {
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        fileManager.saveNewType("v","Transit bus");
+        fileManager.writeToFile("v"+" "+"Transit bus"+" ","temp.txt");
         setContentView(R.layout.vehicle_quantity_popup);
     }
 
     public void onVehicleItem5Click(View v)
     {
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        fileManager.saveNewType("v","Van/Light Truck");
+        fileManager.writeToFile("v"+" "+"Van/Light Truck"+" ","temp.txt");
         setContentView(R.layout.vehicle_quantity_popup);
     }
 
@@ -126,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        fileManager.saveQuantity(quantity);
+        fileManager.writeToFile(quantity+"|", "temp.txt");
 
         setContentView(R.layout.activity_main);
 
@@ -154,12 +166,19 @@ public class MainActivity extends AppCompatActivity {
         return string;
     }
 
-
-
-
-    //the final block that closes readers from https://stackoverflow.com/questions/37037718/is-it-necessary-to-call-close-in-a-finally-when-writing-files-in-java
+    public void subtractHalfADay(View v)
+    {
+        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+        TimeManager timeManager = new TimeManager(fileManager);
+        timeManager.takeAwayHalfADay(getApplicationContext());
+    }
 
     public void calculateCurrentFootprint(View v)
+    {
+        calculateCurrentFootprint();
+    }
+
+    public String calculateCurrentFootprint()
     {
         ArrayList<String> foodList = new ArrayList<String>();
         ArrayList<String> vehicleList = new ArrayList<String>();
@@ -193,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView answerText=findViewById(R.id.footprintValue);
         answerText.setText(footprint);
+        return footprint;
     }
 
 }
