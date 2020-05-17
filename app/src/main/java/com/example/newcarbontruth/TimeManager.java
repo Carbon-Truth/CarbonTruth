@@ -14,7 +14,7 @@ class TimeManager {
     }
 
     //check if a day has passed since the last time the footprint was recorded.
-    public boolean dayHasPassed()
+    public boolean dayHasPassed(Context applicationContext)
     {
         //current date
 //        Date date = new Date();
@@ -24,7 +24,10 @@ class TimeManager {
         String lastTimeStr = fileManager.getLastTime();
         long lastTime = Long.valueOf(lastTimeStr);
 
-        if (currentTime>lastTime+86400000)
+        Toast toast=Toast.makeText(applicationContext, "grep: "+(currentTime-lastTime), Toast.LENGTH_LONG);
+        toast.show();
+
+        if (currentTime-lastTime>(long)86400000)
         {
             fileManager.clearFile("tempLastTime.txt");
             fileManager.writeToFile(""+System.currentTimeMillis(), "tempLastTime.txt");

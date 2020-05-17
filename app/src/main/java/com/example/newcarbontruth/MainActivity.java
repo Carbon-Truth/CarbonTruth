@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         String toPassIsTheQuestion = "";
 
-        if (timeManager.dayHasPassed())
+        if (timeManager.dayHasPassed(getApplicationContext()))
         {
             String footprintForYesterday = calculateCurrentFootprint();
             fileManager.writeToFile(footprintForYesterday, "tempFootprint.txt");
@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         TextView answerText=findViewById(R.id.footprintValue);
         answerText.setText(fileManager.getFootprintValue());
 
-        Toast toast=Toast.makeText(getApplicationContext(), "grep: you toast"+toPassIsTheQuestion, Toast.LENGTH_LONG);
-        toast.show();
+//        Toast toast=Toast.makeText(getApplicationContext(), "grep: you toast"+toPassIsTheQuestion, Toast.LENGTH_LONG);
+//        toast.show();
     }
 
     public void inputCarbon(View v) { setContentView(R.layout.add_carbon); }
