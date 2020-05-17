@@ -48,9 +48,9 @@ class TimeManager {
         {
             lastTimeStr=lastTimeStr.substring(0,lastTimeStr.length()-1);
         }
-        long lastTime = Long.valueOf(lastTimeStr)-432000000;
+        long lastTime = Long.valueOf(lastTimeStr)-(long)432000000;
         fileManager.clearFile("tempLastTime.txt");
-        fileManager.writeToFile(""+lastTimeStr, "tempLastTime.txt");
+        fileManager.writeToFile(""+lastTime, "tempLastTime.txt");
         Toast toast=Toast.makeText(applicationContext, "grep: "+lastTime+" vs initial "+ancientLastTimeStr, Toast.LENGTH_LONG);
         toast.show();
     }
