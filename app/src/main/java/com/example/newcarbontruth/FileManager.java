@@ -70,7 +70,7 @@ public class FileManager {
 
             if (total.equals(""))
             {
-                total="Not Yet";
+                total="N/A";
             }
 
             return total;

@@ -141,9 +141,6 @@ public class MainActivity extends AppCompatActivity {
         fileManager.writeToFile(quantity+"|", "temp.txt");
 
         setContentView(R.layout.activity_main);
-
-        TextView answerText=findViewById(R.id.mostRecentInputStr);
-        answerText.setText(formatTemp(fileManager.readTempFile()));
     }
 
     public String formatTemp(String temp)
