@@ -10,7 +10,9 @@ public class Calculations
 	//footprint==tons of carbon per year
 	private double footprint;
 
-	//input variables
+	/* upon initialization, the footprint is calculated with various methods within the class.
+	 * The final value of the footprint can be accessed using the footprint's getter method.
+	 */
 	public Calculations(ArrayList<String> givenFood, ArrayList<String> givenVehicles)
 	{
 		foods = initializeFoodHashmap();
@@ -18,6 +20,7 @@ public class Calculations
 		double foodFootprint=0.0;
 		double transportationFootprint=0.0;
 
+		//parses through all of the food values in givenFood, calculates the footprint using foodCalculations(), and adds the totals together.
 		for (String string : givenFood)
 		{
 			int space = string.indexOf(' ');
@@ -27,6 +30,7 @@ public class Calculations
 			foodFootprint += foodCalculations(first, second);
 		}
 
+		//parses through all of the vehicle values in givenVehicles, calculates the footprint using transportationCalculations(), and adds the totals together.
 		for (String string : givenVehicles)
 		{
 			int space = string.indexOf(' ');
@@ -36,10 +40,10 @@ public class Calculations
 			transportationFootprint+=transportationCalculations(first, second);
 		}
 
+		//the total footprint is just the sum of the total food footprint and transportation footprint.
 		footprint=foodFootprint+transportationFootprint;
 	}
 
-	//do calculations
 	public double transportationCalculations(String vehicleType, double givenMiles)
 	{
 		//if the mpg wasn't found in the controller database, mpg is set to 25.
@@ -81,12 +85,12 @@ public class Calculations
 		return totalTonsperYear;
 	}
 
-	//output the variables
 	public double getFootprint()
 	{
 		return footprint;
 	}
 
+	//initializes the food hashmap
 	private HashMap<String, Double> initializeFoodHashmap()
 	{
 		HashMap<String, Double> newFoods = new HashMap<String, Double>();
@@ -100,6 +104,7 @@ public class Calculations
 		return newFoods;
 	}
 
+	//initializes the vehicle hashmap
 	private HashMap<String, Double> initializeVehiclesHashmap()
 	{
 		HashMap<String, Double> newVehicles = new HashMap<String, Double>();

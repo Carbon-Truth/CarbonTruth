@@ -25,27 +25,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* checks if a day has passed since the last time the footprint was recorded.
+         * this portion of the code is commented out for now, as the time-reliant portion
+         * of the app isn't part of the MVP. However, it could be included in future
+         * iterations of the app.
+         */
+//        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
+//        TimeManager timeManager = new TimeManager(fileManager);
+//
+//        if (timeManager.dayHasPassed(getApplicationContext()))
+//        {
+//            String footprintForYesterday = calculateCurrentFootprint();
+//            fileManager.writeToFile(footprintForYesterday, "tempFootprint.txt");
+//        }
+
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        TimeManager timeManager = new TimeManager(fileManager);
-        //check if a day has passed since the last time the footprint was recorded.
 
-        String toPassIsTheQuestion = "";
-
-        if (timeManager.dayHasPassed(getApplicationContext()))
-        {
-            String footprintForYesterday = calculateCurrentFootprint();
-            fileManager.writeToFile(footprintForYesterday, "tempFootprint.txt");
-            toPassIsTheQuestion=" you passed";
-        }
-
+        //sets the ui textview footprintValue to the footprint value stored in "tempFootprint.txt"
         TextView answerText=findViewById(R.id.footprintValue);
         answerText.setText(fileManager.getFootprintValue());
-
-//        Toast toast=Toast.makeText(getApplicationContext(), "grep: you toast"+toPassIsTheQuestion, Toast.LENGTH_LONG);
-//        toast.show();
     }
 
-    public void inputCarbon(View v) { setContentView(R.layout.add_carbon); }
+    //all of the following methods change the layout when a button is clicked
+    public void inputCarbon(View v)
+    {
+        setContentView(R.layout.add_carbon);
+    }
 
     public void onFoodPopUpClick(View v)
     {
@@ -57,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.vehicle_popup);
     }
 
+    /* when clicked, these items also store what type of item the user clicked in the "temp.txt" file
+     * so that the values that they input will be identifiable later on.
+     */
     public void onFoodItem1Click(View v)
     {
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
@@ -129,9 +137,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void submit(View v)
     {
+        //puts the quantity that was just inputted by the user into the "temp.txt" file
         EditText givenQuantity=findViewById(R.id.quantity_input);
         String quantity=givenQuantity.getText().toString();
 
+        //if the user fails to input data, the quantity is written as 0, and won't end up affecting the overall footprint.
         if (quantity.isEmpty())
         {
             quantity="0";
@@ -143,33 +153,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public String formatTemp(String temp)
-    {
-        String string = "";
-        while (!temp.equals("")&&!temp.equals(" "))
-        {
-            String type=temp.substring(0, temp.indexOf(' '));
-            temp=temp.substring(temp.indexOf(' ')+1);
-            String rest=temp.substring(0, temp.indexOf('|'));
-            temp=temp.substring(temp.indexOf('|')+1);
-
-            string = string + rest + " ";
-        }
-
-        if (string.equals(""))
-        {
-            string="N/A";
-        }
-        return string;
-    }
-
-    public void subtractHalfADay(View v)
-    {
-        FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
-        TimeManager timeManager = new TimeManager(fileManager);
-        timeManager.takeAwayHalfADay(getApplicationContext());
-    }
-
+    //calculates current footprint, from a button (hence the need for a (View V) input)
     public void calculateCurrentFootprint(View v)
     {
         calculateCurrentFootprint();
@@ -183,6 +167,10 @@ public class MainActivity extends AppCompatActivity {
         FileManager fileManager = new FileManager(getFilesDir(), getApplicationContext());
         String temp = fileManager.readTempFile();
 
+        /* takes all the formatting done earlier and parses through it, separating the information
+         * gathered into two ArrayLists, foodList and vehicleList. An example of the structure for
+         * information in the file is "v Bicycle 10.0|f vegetables 2.0|"
+         */
         while (!temp.equals("")&&!temp.equals(" "))
         {
             String type=temp.substring(0, temp.indexOf(' '));
@@ -200,8 +188,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        //actually calculates the footprint, using the Calculations class.
         Calculations calculate = new Calculations(foodList, vehicleList);
         String footprint = ""+calculate.getFootprint();
+        //keeps the footprint string at a manageable size (otherwise it could have too many decimal places)
         if (footprint.length()>8)
         {
             footprint=footprint.substring(0, 8);
