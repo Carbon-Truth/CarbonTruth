@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:onClick="submit"
         android:text="@string/submit_button_text"
+        android:background="#8fd694"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
