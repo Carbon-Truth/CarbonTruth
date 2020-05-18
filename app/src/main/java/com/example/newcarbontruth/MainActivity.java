@@ -20,6 +20,10 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    /* This class is the main class for the app. It manages all the interaction between classes. It also
+     * manages the changes between different layouts through the various methods linked to the onClick values
+     * present in the xml of the layouts.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

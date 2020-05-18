@@ -3,6 +3,11 @@ package com.example.newcarbontruth;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/* This class manages all the calculations for the app. It is simply initialized with the data that needs to be
+ * used, and it has a getter method for the final footprint.
+ *
+ * data for lbs of CO2 per lb food found from https://www.greeneatz.com/foods-carbon-footprint.html
+ */
 public class Calculations
 {
 	private HashMap<String, Double> foods;

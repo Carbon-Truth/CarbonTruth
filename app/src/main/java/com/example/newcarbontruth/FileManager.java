@@ -9,11 +9,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/* This class manages all the files for the
+/* This class manages all the files for the app. Data is stored in files, and if other classes need that data,
+ * this class will read and write from files for them.
  *
- *
+ * code for reading and writing a file in internal storage based on https://stackoverflow.com/questions/44587187/android-how-to-write-a-file-to-internal-storage
  */
-//code for reading and writing a file in internal storage based on https://stackoverflow.com/questions/44587187/android-how-to-write-a-file-to-internal-storage
 public class FileManager
 {
     private File fileDirectory;
@@ -52,7 +52,7 @@ public class FileManager
             return total;
         }
         catch (Exception e) {
-            return "Nothing Found";
+            return "N/A";
         }
     }
 
@@ -92,7 +92,7 @@ public class FileManager
             return total;
         }
         catch (Exception e) {
-            return "footprint not found";
+            return "N/A";
         }
     }
 

@@ -5,12 +5,12 @@ import android.widget.Toast;
 
 import java.util.Date;
 
+/* this class isn't implemented in this version of the code (being non-essential to the MVP)
+ * but it has the ability to tell time and store data, which would be useful in future iterations of the app.
+ */
+
 class TimeManager {
     FileManager fileManager;
-
-    /* this class isn't implemented in this version of the code (being non-essential to the MVP)
-     * but the ability to tell time and store data accordingly would be useful in future iterations of the app.
-     */
 
 //    public TimeManager(FileManager givenFileManager)
 //    {
