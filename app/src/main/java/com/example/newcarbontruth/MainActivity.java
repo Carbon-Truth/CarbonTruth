@@ -171,35 +171,47 @@ public class MainActivity extends AppCompatActivity {
          * gathered into two ArrayLists, foodList and vehicleList. An example of the structure for
          * information in the file is "v Bicycle 10.0|f vegetables 2.0|"
          */
-        while (!temp.equals("")&&!temp.equals(" "))
-        {
-            String type=temp.substring(0, temp.indexOf(' '));
-            temp=temp.substring(temp.indexOf(' ')+1);
-            String rest=temp.substring(0, temp.indexOf('|'));
-            temp=temp.substring(temp.indexOf('|')+1);
 
-            if (type.equals("f"))
+        try{
+            while (!temp.equals("")&&!temp.equals(" ")&&!temp.equals("N/A")&&!temp.equals("Found"))
             {
-                foodList.add(rest);
-            }
-            else
-            {
-                vehicleList.add(rest);
+                String type=temp.substring(0, temp.indexOf(' '));
+                temp=temp.substring(temp.indexOf(' ')+1);
+                String rest=temp.substring(0, temp.indexOf('|'));
+                temp=temp.substring(temp.indexOf('|')+1);
+
+                if (type.equals("f"))
+                {
+                    foodList.add(rest);
+                }
+                else
+                {
+                    vehicleList.add(rest);
+                }
             }
         }
-
-        //actually calculates the footprint, using the Calculations class.
-        Calculations calculate = new Calculations(foodList, vehicleList);
-        String footprint = ""+calculate.getFootprint();
-        //keeps the footprint string at a manageable size (otherwise it could have too many decimal places)
-        if (footprint.length()>8)
+        catch (Exception e)
         {
-            footprint=footprint.substring(0, 8);
         }
 
+        if (!temp.equals("N/A")&&!temp.equals("Found"))
+        {
+            //actually calculates the footprint, using the Calculations class.
+            Calculations calculate = new Calculations(foodList, vehicleList);
+            String footprint = ""+calculate.getFootprint();
+            //keeps the footprint string at a manageable size (otherwise it could have too many decimal places)
+            if (footprint.length()>8)
+            {
+                footprint=footprint.substring(0, 8);
+            }
+
+            TextView answerText=findViewById(R.id.footprintValue);
+            answerText.setText(footprint);
+            return footprint;
+        }
         TextView answerText=findViewById(R.id.footprintValue);
-        answerText.setText(footprint);
-        return footprint;
+        answerText.setText("N/A");
+        return "N/A";
     }
 
 }

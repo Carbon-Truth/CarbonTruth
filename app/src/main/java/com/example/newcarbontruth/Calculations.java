@@ -76,7 +76,7 @@ public class Calculations
 		}
 		catch (NullPointerException e) { }
 
-		double totalKilos = givenGrams/1000.0;
+		double totalKilos = kiloOfCO2perKiloFood*givenGrams/1000.0;
 
 		//kilos to ton
 		int kpt=907;

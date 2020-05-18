@@ -9,12 +9,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/* This class manages all the files for the
+ *
+ *
+ */
+//code for reading and writing a file in internal storage based on https://stackoverflow.com/questions/44587187/android-how-to-write-a-file-to-internal-storage
 public class FileManager
 {
     private File fileDirectory;
     private Context applicationContext;
-
-    //code for reading and writing a file in internal storage based on https://stackoverflow.com/questions/44587187/android-how-to-write-a-file-to-internal-storage
 
     public FileManager(File givenFileDirectory, Context givenApplicationContext)
     {
@@ -41,6 +44,11 @@ public class FileManager
                 total=total+st;
             }
 
+            if (total.equals(""))
+            {
+                total="N/A";
+            }
+
             return total;
         }
         catch (Exception e) {
@@ -57,6 +65,10 @@ public class FileManager
 
         try {
             File newFile = new File(file, "tempFootprint.txt");
+
+            if (!newFile.exists()) {
+                newFile.mkdirs();
+            }
 
             FileWriter writer = new FileWriter(newFile, true);
             writer.append("");
